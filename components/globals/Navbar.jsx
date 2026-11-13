@@ -1,9 +1,17 @@
+"use client";
+
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function toogleMenu() {
+    setIsOpen(!isOpen);
+  }
+
   const logo =
     "https://cdn.prod.website-files.com/68eda376f70ff119166dcbfd/68edc03857163ec22cf166b1_4ca8d5e8e465834c929c9f97e9e1154c_Navbar%20Logo.svg";
 
@@ -38,10 +46,16 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="lg:hidden">
-            <Menu />
+            <button onClick={toogleMenu}>
+              <Menu />
+            </button>
           </div>
         </div>
-        <div className="lg:hidden flex flex-col items-center px-6 py-8 rounded-2xl bg-amber-50 mt-4 gap-8">
+        <div
+          className={
+            `lg:hidden flex flex-col items-center px-6 py-8 rounded-2xl bg-amber-50 mt-4 gap-8 ${isOpen ? "block" : "hidden" }`
+          }
+        >
           {pages.map((page, index) => (
             <Link href={page.href} key={index}>
               {page.title}
